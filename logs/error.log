@@ -26,3 +26,8 @@
 22.04.2020 19:29:57 [JavaPython.FritzBox][Error] --> Eine IO-Exception ist aufgetreten
 22.04.2020 19:33:27 [JavaPython.FritzBox][Error] --> Eine IO-Exception ist aufgetreten
 22.04.2020 20:23:58 [JavaPython.FritzBox][Error] --> Eine IO-Exception ist aufgetreten: ../python/fritzbox/fritzbox.py
+23.04.2020 22:01:59 [FileReader][Error] --> File T:\Documents\smarthome\code\java\target\classes couldn't be found
+23.04.2020 22:33:48 [FileReader][Error] --> File T:\Documents\smarthome\code\java\target\classes couldn't be found
+23.04.2020 22:36:08 [FileReader][Error] --> File T:\Documents\smarthome\code\java\target\classes couldn't be found
+23.04.2020 22:36:58 [FileReader][Error] --> File T:\Documents\smarthome\code\java\target\classes couldn't be found
+23.04.2020 22:37:07 [FileReader][Error] --> File T:\Documents\smarthome\code\java\target\classes couldn't be found

@@ -1,9 +1,9 @@
 import FritzBox.FritzBoxDevice;
 import FritzBox.FritzBoxInformations;
+import information.RunningProgramInformation;
 import logger.Logger;
 import pythonProgramms.FritzBox;
 import pythonProgramms.Sonos;
-import system.RunningSystem;
 
 public class ExampleMain {
 	
@@ -26,7 +26,7 @@ public class ExampleMain {
 		// Actions which should be executed at start
 		Logger.log("System", "Boot", "The SmartHome programm boot...");
 		
-		Logger.log("Programm", "Boot", "Detected System: " + RunningSystem.RunningSystem);
+		Logger.log("Programm", "Boot", "Detected System: " + RunningProgramInformation.RunningSystem);
 		
 		Logger.log("Program", "Boot", "The SmartHome program was booted");
 		

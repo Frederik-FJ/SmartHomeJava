@@ -1,13 +1,15 @@
 package pythonProgramms;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
 import FritzBox.FritzBoxDevice;
 import FritzBox.FritzBoxInformations;
+import config.VarsFromConfig;
+import information.RunningProgramInformation;
 import logger.Logger;
-import system.RunningSystem;
 
 /**
  * 
@@ -18,7 +20,7 @@ import system.RunningSystem;
  */
 public class FritzBox {
 	
-	String path = "../python/fritzbox/";
+	String path = RunningProgramInformation.runningPath + "/pythonFiles/fritzbox/";
 	
 	String statePyFile = path + "fritzbox.py";
 	String devicePyFile = path + "fritz_device.py";
@@ -39,7 +41,7 @@ public class FritzBox {
 		this.ip = ip;
 		this.pw = pw;
 		
-		if(RunningSystem.Linux) {
+		if(RunningProgramInformation.Linux) {
 			pythonCmd = "python3";
 		}
 	}
@@ -94,6 +96,9 @@ public class FritzBox {
 	 * @return returns the known Devices from the FritzBox
 	 */
 	public FritzBoxDevice[] getKnownDevices() {
+		
+		Logger.logConsole("FritzBox", "Info", new File(devicePyFile).getAbsolutePath());
+		
 		String pyOutput = this.runDevice();
 		String[] pyOutputArray = pyOutput.split("\n");
 		FritzBoxDevice[] devices = new FritzBoxDevice[pyOutputArray.length];

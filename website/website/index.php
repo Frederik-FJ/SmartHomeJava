@@ -28,7 +28,7 @@ $darkmode = true;
       <li>FritzBox</li>
       <li>Sonos</li>
     </ul>
-    <p>In naher zukunft werden aber noch mehr Dienste unterstützt.</p>
+    <p>In naher Zukunft werden aber noch mehr Dienste unterstützt.</p>
     <p><a href="pannel/">Hier</a> geht's zum Befehlspannel</p>
     <p>Es hilft sehr, wenn jeder, der einen Bug entdeckt, diesen reportet.<a href="report/reportBug/">Hier reportest du einen Bug</a></p><br/>
     <p>Das Programm nutzt diese Dienste:</p>
@@ -53,9 +53,9 @@ $darkmode = true;
     <p>Das Programm kompilieren:</p>
     <ul>
       <li>In den Ordner code/java/ gehen</li>
-      <li>"mvn compile" und danach "mvn package" ausführen</li>
+      <li><code>mvn compile</code> und danach <code>mvn package</code> ausführen</li>
       <li>Die Jar-Datei aus dem code/java/target Ordner in den Ordner code/compiledJava legen</li>
-      <li>Programm ist jetzt mit "java -jar Programmname.jar" ausführbar</li>
+      <li>Programm ist jetzt mit <code>java -jar Programmname.jar</code> ausführbar</li>
     </ul><br>
     <p>Javadoc: </p>
     <ul>

@@ -1,4 +1,7 @@
 <?php
+if(true){
+  header('Location: http://frederik-janssen.de');
+}
 $darkmode = false;
 ?>
 <!DOCTYPE html>

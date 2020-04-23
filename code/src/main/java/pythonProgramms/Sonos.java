@@ -3,8 +3,9 @@ package pythonProgramms;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
+
+import information.RunningProgramInformation;
 import logger.Logger;
-import system.RunningSystem;
 
 /**
  * 
@@ -15,7 +16,7 @@ import system.RunningSystem;
  */
 public class Sonos {
 	
-	String filePath = "../python/sonos/sonos.py";
+	String filePath = "pythonFiles/sonos/sonos.py";
 	
 	String ip;
 	
@@ -32,7 +33,7 @@ public class Sonos {
 	public Sonos(String ip) {
 		this.ip = ip;
 		
-		if(RunningSystem.Linux) {
+		if(RunningProgramInformation.Linux) {
 			pythonCmd = "python3";
 		}
 	}

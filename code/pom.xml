@@ -4,6 +4,10 @@
   <artifactId>SmartHomeJava</artifactId>
   <version>0.0.1</version>
   <packaging>jar</packaging>
+  <properties>
+    <project.build.sourceEncoding>ISO8859_1</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>ISO8859_1</project.reporting.outputEncoding>
+</properties>
   <build>
     <resources>
       <resource>
@@ -41,34 +45,27 @@
         </descriptorRefs>
       </configuration>
     </plugin>
-	  <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-resources-plugin</artifactId>
-        <configuration>
-          <encoding>ISO8859_1</encoding>
-        </configuration>
-      </plugin>
-      <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.1</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <transformers>
-                                <transformer
-                                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>Main</mainClass>
-                                </transformer>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+    <plugin>
+	  	<groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.1</version>
+        <executions>
+            <execution>
+                <phase>package</phase>
+                <goals>
+                    <goal>shade</goal>
+                </goals>
+                <configuration>
+                    <transformers>
+                        <transformer
+                            implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <mainClass>Main</mainClass>
+                        </transformer>
+                    </transformers>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
     </plugins>
   </build>
   <dependencies>
