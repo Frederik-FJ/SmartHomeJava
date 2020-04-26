@@ -1,9 +1,14 @@
 #exclude personal Main
 /code/src/main/java/Main.java
 
-#exclude testMain
+#exclude test classes and test projekts
 /code/src/main/java/testMain.java
 /code/src/main/java/TestMain.java
+/code/src/main/java/database/TestConnector.java
+/test/
+/website/experimentalJavaWebsite/
+/ServerExperimental/
+/website/website/experimentalWebsite/
 
 #exclude own .class files
 /code/bin/
@@ -19,3 +24,10 @@
 
 #exclude other things
 /code/ablage
+/code/test.conf
+/code/test/
+
+#exclude jar/sh files
+*.jar
+*.sh
+/.metadata/

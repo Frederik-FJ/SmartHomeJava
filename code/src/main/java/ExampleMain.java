@@ -1,11 +1,14 @@
+
 import FritzBox.FritzBoxDevice;
 import FritzBox.FritzBoxInformations;
+import config.ConfigFile;
 import information.RunningProgramInformation;
 import logger.Logger;
 import pythonProgramms.FritzBox;
 import pythonProgramms.Sonos;
 
 public class ExampleMain {
+	
 	
 	
 	public static void main(String[] args) {
@@ -23,18 +26,40 @@ public class ExampleMain {
 			}
 		});
 		
-		// Actions which should be executed at start
+		
+		// Actions which should be executed once at the start of the program
 		Logger.log("System", "Boot", "The SmartHome programm boot...");
 		
 		Logger.log("Programm", "Boot", "Detected System: " + RunningProgramInformation.RunningSystem);
+		
+		
+		// Config paths
+		String cmdsConfPath = RunningProgramInformation.runningPath + "config/commands.conf";
+		
+		// Create config objects
+		ConfigFile cmdsConf = new ConfigFile(cmdsConfPath);
+		
+		//load config
+		if(!cmdsConf.exists()) {
+			cmdsConf.create(new String[][] {{"#","pythonCmd"},{"cmds that the system is using", "python3"}});
+		}
+		String pythonCmd = cmdsConf.read("pythonCmd");
+
+		
+		
+		
 		
 		Logger.log("Program", "Boot", "The SmartHome program was booted");
 		
 		
 		// The loop which will be executed all the Time
 		while (true) {
+			
 			String output = "";
-			FritzBox fb = new FritzBox("192.168.178.1", "password");
+			FritzBox fb = new FritzBox("192.168.178.1", "password", pythonCmd);
+			Sonos son = new Sonos("Sonos IP", pythonCmd);
+			
+			// get FritzBox Informations
 			for(FritzBoxInformations fbinfo : fb.getWLanState()) {
 				String ssid, status;
 				status = fbinfo.getState();
@@ -43,7 +68,7 @@ public class ExampleMain {
 			}
 			Logger.log("FritzBox", "Info", output);
 			
-			
+			// get Devices connected with the FritzBox
 			FritzBoxDevice[] devices = fb.getKnownDevices();
 			FritzBoxDevice[] onlineDevs = fb.getOnlineDevices(devices);
 			for(FritzBoxDevice d: onlineDevs) {
@@ -51,9 +76,10 @@ public class ExampleMain {
 				Logger.log("FritzBox", "Info", output);
 			}
 			
-			Sonos son = new Sonos("Sonos IP");
 			
-			Logger.log("Sonos", "Info", "Volume: " + son.getVolume());
+			// Log the volume from the sonos
+			int volume = son.getVolume();
+			Logger.log("Sonos", "Info", "Volume: " + volume);
 			
 			
 			// Wait 60s till execute the loop again

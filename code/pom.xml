@@ -7,7 +7,7 @@
   <properties>
     <project.build.sourceEncoding>ISO8859_1</project.build.sourceEncoding>
     <project.reporting.outputEncoding>ISO8859_1</project.reporting.outputEncoding>
-</properties>
+  </properties>
   <build>
     <resources>
       <resource>
@@ -37,7 +37,7 @@
       <configuration>
         <archive>
           <manifest>
-            <mainClass>Main</mainClass>
+            <mainClass>TestMain</mainClass>
           </manifest>
         </archive>
         <descriptorRefs>
@@ -59,7 +59,7 @@
                     <transformers>
                         <transformer
                             implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>Main</mainClass>
+                            <mainClass>TestMain</mainClass>
                         </transformer>
                     </transformers>
                 </configuration>
@@ -69,5 +69,11 @@
     </plugins>
   </build>
   <dependencies>
+  <!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
+    <dependency>
+        <groupId>org.mariadb.jdbc</groupId>
+        <artifactId>mariadb-java-client</artifactId>
+        <version>2.6.0</version>
+    </dependency>
   </dependencies>
 </project>

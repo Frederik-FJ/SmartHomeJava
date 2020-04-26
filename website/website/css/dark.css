@@ -10,3 +10,27 @@ a:visited{
 a:link{
   color: #bbbbbb;
 }
+
+ul.nav{
+  background-color: #2B2B2B;
+}
+
+li a.activ{
+  background-color: #777;
+  color: black;
+}
+
+li a.notActiv{
+  background-color: #333333;
+  color: #AAAAAA;
+}
+
+li a:hover:not(.activ){
+  background-color: #999;
+  color: black;
+}
+
+.button{
+  border-color: black;
+  background-color: #333333;
+}

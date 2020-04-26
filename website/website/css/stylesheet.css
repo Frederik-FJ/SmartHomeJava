@@ -16,3 +16,57 @@ h3{
   padding-left: 20%;
   padding-right: 20%,
 }
+
+body{
+  margin: 0;
+  height: 100%;
+}
+
+ul.nav{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 30%;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+li a.navLink{
+  display: block;
+  padding: 3px 0 3px 15px;
+  text-decoration: none;
+}
+
+li a.nav{
+  display: block;
+  padding: 10px 0 10px 15px;
+  text-decoration: none;
+}
+
+li a.navU{
+  display: block;
+  padding: 3px 0 3px 15px;
+  text-decoration: none;
+}
+
+.divInhalt{
+  margin-left: 30%;
+  padding: 1px 15px;
+  height: 100%
+}
+
+.button{
+  text-align: center;
+  border-style: solid;
+  width: 50%;
+  margin: auto;
+  overflow: hidden;
+  z-index: 100;
+
+  height: 200px;
+}
+
+.mittig{
+  text-align: center;
+}

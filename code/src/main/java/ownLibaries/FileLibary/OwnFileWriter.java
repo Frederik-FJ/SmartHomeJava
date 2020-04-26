@@ -4,18 +4,20 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import information.RunningProgramInformation;
 import logger.Logger;
 
 /**
  * 
  * @author FrederikFJ
- * @since version 0.0.2
+ * @since version 0.0.1
  *
  */
 public class OwnFileWriter {
+	
 
 	/**
-	 * Creates a file
+	 * Creates a file not in the Jar File
 	 * 
 	 * @author FrederikFJ
 	 * @since version 0.0.1
@@ -25,10 +27,17 @@ public class OwnFileWriter {
 	 */
 	public static boolean createFile(File f) {
 		if(f.exists()) {
-			Logger.logError("FileWriter", "The file already exists");
+			Logger.logConsole("FileWriter", "Error", "The file already exists");
 			return false;
 		}else {
 			try {
+				char between = '/';
+				if(RunningProgramInformation.Linux) between = '/';
+				if(RunningProgramInformation.Windows) between = '\\';
+				String s = f.getAbsolutePath();
+				String filePath = s.substring(0, s.lastIndexOf(between));
+				File path = new File(filePath);
+				if(!path.exists()) path.mkdirs();
 				f.createNewFile();
 				Logger.log("FileWriter", "Info", "The file " + f.getAbsolutePath() + " has been created");
 				return true;
@@ -43,7 +52,7 @@ public class OwnFileWriter {
 	/**
 	 * Renames a file
 	 * 
-	 * @author FredeikFJ
+	 * @author FrederikFJ
 	 * @since version 0.0.1
 	 * 
 	 * @param f File to rename
@@ -51,7 +60,7 @@ public class OwnFileWriter {
 	 * @return returns if the method worked correctly
 	 */
 	public static boolean renameFile(File f, File newName) {
-		if(newName.exists()) {
+		if(!newName.exists()) {
 			try {
 				f.renameTo(newName);
 				Logger.log("FileWriter", "Info", "The file has been renamed");
@@ -63,24 +72,28 @@ public class OwnFileWriter {
 			}
 			
 		}else {
-			Logger.logError("FileWriter", "The file with the new name already exists");
+			if(f.getName().equals("error.log")) {
+				Logger.logConsole("FileWriter", "Error", "The file with that name already exists");
+				return false;
+			}
+			Logger.logConsole("FileWriter", "Error","The file with the new name already exists");
 			return false;
 		}
 	}
 	
 	
 	/**
-	 * Add a line to a file
+	 * Adds something to a file
 	 * 
 	 * @author FrederikFJ
-	 * @since version 0.0.1
+	 * @since version 0.0.3
 	 * 
 	 * 
 	 * @param f File in which the method should write
 	 * @param input The string which should be written in the File
 	 * @return returns if the method worked correctly
 	 */
-	public static boolean addLine(File f, String input) {
+	public static boolean add(File f, String input) {
 		if(f.exists()) {
 			
 			String n = System.getProperty("line.separator");

@@ -2,14 +2,15 @@ package pythonProgramms;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
 import FritzBox.FritzBoxDevice;
 import FritzBox.FritzBoxInformations;
-import config.VarsFromConfig;
 import information.RunningProgramInformation;
 import logger.Logger;
+import ownLibaries.FileLibary.OwnFileWriter;
 
 /**
  * 
@@ -20,18 +21,41 @@ import logger.Logger;
  */
 public class FritzBox {
 	
-	String path = RunningProgramInformation.runningPath + "/pythonFiles/fritzbox/";
 	
-	String statePyFile = path + "fritzbox.py";
-	String devicePyFile = path + "fritz_device.py";
+	String jarPath = "/pythonFiles/fritzbox/";
+	String path = RunningProgramInformation.runningPath + jarPath.substring(1);
+	
+	
+	String statePyFilePath = path + "fritzbox.py";
+	String devicePyFilePath = path + "fritz_device.py";
+	File statePyFile = new File(statePyFilePath);
+	File devicePyFile = new File(devicePyFilePath);
 	String ip;
 	String pw;
 	
 	String pythonCmd = "python";
 	
 	/**
+	 * @since version 0.0.3
+	 * @param ip IP address from the FritzBox
+	 * @param pw password to Login into the FritzBox
+	 * @param pythonCmd the pythonCmd which should be used (for example python3,python)
+	 */
+	public FritzBox(String ip, String pw, String pythonCmd) {
+		this.ip = ip;
+		this.pw = pw;
+		
+		this.pythonCmd = pythonCmd;
+		
+		
+		
+		checkFiles();
+		
+	}
+	
+	
+	/**
 	 * 
-	 * @author FrederikFJ
 	 * @since version 0.0.1
 	 * 
 	 * @param ip The IP address from the FritzBox
@@ -41,9 +65,38 @@ public class FritzBox {
 		this.ip = ip;
 		this.pw = pw;
 		
-		if(RunningProgramInformation.Linux) {
-			pythonCmd = "python3";
+		checkFiles();
+
+	}
+	
+	/**
+	 * Check if the python files exists
+	 * @since version 0.0.3
+	 */
+	private void checkFiles() {
+		if(!statePyFile.exists()) createFile(statePyFile, jarPath + "fritzbox.py");
+		if(!devicePyFile.exists()) createFile(devicePyFile, jarPath + "fritz_device.py");
+	}
+	
+	/**
+	 * Creates the python files outside of the jar file
+	 * @since version 0.0.3
+	 * @param file File which should be created
+	 * @param path Path of the file in the jar which should be copied
+	 */
+	private void createFile(File file, String path) {
+		OwnFileWriter.createFile(file);
+		InputStream is = getClass().getResourceAsStream(path);
+		int i;
+		String s = "";
+		try {
+			while((i = is.read())!=-1){
+				s += (char) i;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		OwnFileWriter.add(file, s);
 	}
 	
 
@@ -53,7 +106,6 @@ public class FritzBox {
 	/**
 	 * This is the method to get the states of the wifi
 	 * 
-	 * @author FrederikFJ
 	 * @since version 0.0.1
 	 * 
 	 * @return returns the states of the wifi
@@ -75,7 +127,12 @@ public class FritzBox {
 			
 			// Muss verändert werden, wenn Service,Action oder Keys verändert werden
 			FritzBoxInformations fbinfo = new FritzBoxInformations(this.ip);
-			fbinfo.setStateInformation(infoArr[0], infoArr[1]);
+			try {
+				fbinfo.setStateInformation(infoArr[0], infoArr[1]);
+			} catch (ArrayIndexOutOfBoundsException e) {
+				Logger.logError("FritzBox", "The python file gave an invalid output back to the Java programm");
+			}
+			
 			
 			infoArray[i] = fbinfo;
 		}
@@ -90,15 +147,12 @@ public class FritzBox {
 	// Device 
 	
 	/**
-	 * @author FrederikFJ
 	 * @since version 0.0.2
 	 * 
 	 * @return returns the known Devices from the FritzBox
 	 */
 	public FritzBoxDevice[] getKnownDevices() {
-		
-		Logger.logConsole("FritzBox", "Info", new File(devicePyFile).getAbsolutePath());
-		
+				
 		String pyOutput = this.runDevice();
 		String[] pyOutputArray = pyOutput.split("\n");
 		FritzBoxDevice[] devices = new FritzBoxDevice[pyOutputArray.length];
@@ -115,7 +169,6 @@ public class FritzBox {
 	
 	
 	/**
-	 * @author FrederikFJ
 	 * @since version 0.0.2
 	 * 
 	 * @param devices An Array of devices
@@ -139,7 +192,6 @@ public class FritzBox {
 	
 	
 	/**
-	 * @author FrederikFJ
 	 * @since version 0.0.2
 	 * 
 	 * @param devices An array of devices
@@ -157,7 +209,6 @@ public class FritzBox {
 	}
 	
 	/**
-	 * @author FrederikFJ
 	 * @since version 0.0.2
 	 * 
 	 * @param devices An array of devices
@@ -175,7 +226,6 @@ public class FritzBox {
 	}
 	
 	/**
-	 * @author FrederikFJ
 	 * @since version 0.0.2
 	 * 
 	 * @param devices An array of devices
@@ -197,7 +247,6 @@ public class FritzBox {
 	/**
 	 * The python program to get the State will be called over this method. This method was called run in version 0.0.1
 	 * 
-	 * @author FrederikFJ
 	 * @since version 0.0.2
 	 * 
 	 * @param service The Service which is used to contact the FritzBox
@@ -209,7 +258,7 @@ public class FritzBox {
 	 */
 	private String runState(String service, String action, String keys) {
 		String result = "";
-		String cmd = pythonCmd + " " + statePyFile + " --service " + service + " --action " + action + " --ip "
+		String cmd = pythonCmd + " " + statePyFilePath + " --service " + service + " --action " + action + " --ip "
 				+ this.ip + " --password " + this.pw + " --keys " + keys;
 		try {
 			Process p = Runtime.getRuntime().exec(cmd);
@@ -222,7 +271,7 @@ public class FritzBox {
 		} catch (IOException e) {
 			e.printStackTrace();
 			Logger.logError("JavaPython.FritzBox",
-					"There is an IO-Exception occured while trying to run this cmd: " + statePyFile);
+					"There is an IO-Exception occured while trying to run this cmd: " + statePyFilePath);
 		}
 		
 		return result;
@@ -232,7 +281,6 @@ public class FritzBox {
 	/**
 	 * This method will be executed if you get informations about the hosts
 	 * 
-	 * @author FrederikFJ
 	 * @since version 0.0.2
 	 * 
 	 * @return returns the output from the python file
@@ -241,9 +289,9 @@ public class FritzBox {
 	 */
 	private String runDevice() {
 		String result = "";
-		String cmd = pythonCmd + " " + devicePyFile + " --ip " + this.ip + " --password " + this.pw;
+		String cmd = pythonCmd + " " + devicePyFilePath + " --ip " + this.ip + " --password " + this.pw;
 		try {
-			ProcessBuilder pb = new ProcessBuilder(pythonCmd, devicePyFile, "--ip", this.ip, "--password", this.pw);
+			ProcessBuilder pb = new ProcessBuilder(pythonCmd, devicePyFilePath, "--ip", this.ip, "--password", this.pw);
 			Process p = pb.start();
 			Scanner s = new Scanner(new InputStreamReader(p.getInputStream()));
 			while (s.hasNextLine()) {

@@ -29,7 +29,7 @@ $darkmode = true;
       <li>Sonos</li>
     </ul>
     <p>In naher Zukunft werden aber noch mehr Dienste unterstützt.</p>
-    <p><a href="pannel/">Hier</a> geht's zum Befehlspannel</p>
+    <p><a href="panel/">Hier</a> geht's zum Befehlspannel</p>
     <p>Es hilft sehr, wenn jeder, der einen Bug entdeckt, diesen reportet.<a href="report/reportBug/">Hier reportest du einen Bug</a></p><br/>
     <p>Das Programm nutzt diese Dienste:</p>
     <ul>

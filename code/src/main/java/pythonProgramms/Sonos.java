@@ -1,11 +1,13 @@
 package pythonProgramms;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Scanner;
-
 import information.RunningProgramInformation;
 import logger.Logger;
+import ownLibaries.FileLibary.OwnFileWriter;
 
 /**
  * 
@@ -16,16 +18,22 @@ import logger.Logger;
  */
 public class Sonos {
 	
-	String filePath = "pythonFiles/sonos/sonos.py";
+	
+	String jarPath = "/pythonFiles/sonos/sonos.py";
+	String filePath = RunningProgramInformation.runningPath + jarPath.substring(1);
+	File f = new File(filePath);
 	
 	String ip;
 	
+	
 	String pythonCmd = "python";
 	
-	// Home IP 192.168.180.49
+	
+	
+	
+	
 	
 	/**
-	 * @author FrederikFJ
 	 * @since 0.0.1
 	 * 
 	 * @param ip The IP address of the Sonos
@@ -33,14 +41,52 @@ public class Sonos {
 	public Sonos(String ip) {
 		this.ip = ip;
 		
-		if(RunningProgramInformation.Linux) {
-			pythonCmd = "python3";
+		checkFiles();	
+	}
+	
+	/**
+	 * @since version 0.0.3
+	 * @param ip IP address of the Sonos
+	 * @param pythonCmd the pythonCmd which should be used (for example python3,python)
+	 */
+	public Sonos(String ip, String pythonCmd) {
+		this.ip = ip;
+		this.pythonCmd = pythonCmd;
+		
+		checkFiles();
+	}
+	
+	/**
+	 * Checks if the files exists
+	 * @since version 0.0.3
+	 */
+	private void checkFiles() {
+		if(!f.exists()) createFile(f, jarPath);
+	}
+	
+	/**
+	 * Creates the files
+	 * @since version 0.0.3
+	 * @param file File which should be created
+	 * @param path path in the jar from the file which should be copied
+	 */
+	private void createFile(File file, String path) {
+		OwnFileWriter.createFile(file);
+		InputStream is = getClass().getResourceAsStream(path);
+		int i;
+		String s = "";
+		try {
+			while((i = is.read())!=-1){
+				s += (char) i;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		OwnFileWriter.add(file, s);
 	}
 	
 	
 	/**
-	 * @author FrederikFJ
 	 * @since version 0.0.1
 	 * 
 	 * @param cmd Command in the python file which will be executed
@@ -51,9 +97,10 @@ public class Sonos {
 	 */
 	private String run(String cmd, String params) {
 		String result = "";
+		String execute = pythonCmd + " " + filePath + " --ip " + this.ip + " --cmd " + cmd + " --param " + params;
 		
 		try {
-			Process p = Runtime.getRuntime().exec(pythonCmd + " " + filePath + " --ip " + this.ip + " --cmd " + cmd + " --param " + params);
+			Process p = Runtime.getRuntime().exec(execute);
 			Scanner s = new Scanner(new InputStreamReader(p.getInputStream()));
 			while(s.hasNextLine()) {
 				String st = s.nextLine();
@@ -68,7 +115,6 @@ public class Sonos {
 	}
 	
 	/**
-	 * @author FrederikFJ
 	 * @since version 0.0.1
 	 * 
 	 * @return returns the volume from the Sonos
@@ -84,9 +130,7 @@ public class Sonos {
 	/**
 	 * Changes the volume from the Sonos to the new value
 	 * 
-	 * @author FrederikFJ
 	 * @since version 0.0.1
-	 * 
 	 * @param volume The new Volume
 	 */
 	public void setVolume(int volume) {
@@ -100,7 +144,6 @@ public class Sonos {
 	/**
 	 * Set the volume from the Sonos dynamically
 	 * 
-	 * @author FrederikFJ
 	 * @since version 0.0.1
 	 * 
 	 * @param louder The new volume is the actual volume plus the Parameter louder
@@ -111,8 +154,6 @@ public class Sonos {
 	
 	/**
 	 * Set the volume from the Sonos dynamically
-	 * 
-	 * @author FrederikFJ
 	 * @since version 0.0.1
 	 * 
 	 * @param quieter The new Volume is the actual volume minus the Parameter quieter
@@ -122,7 +163,6 @@ public class Sonos {
 	}
 	
 	/**
-	 * @author FrederikFJ
 	 * @since version 0.0.2
 	 * 
 	 * @return returns the queue from the Sonos
@@ -136,7 +176,6 @@ public class Sonos {
 	}
 	
 	/**
-	 * @author FrederikFJ
 	 * @since version 0.0.2
 	 * 
 	 * @return returns the title from the current playing track
