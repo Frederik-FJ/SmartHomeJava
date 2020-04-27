@@ -130,7 +130,7 @@ public class Logger {
 		}
 		
 		OwnFileWriter.add(errorLogFile, logOutput.substring(0, logOutput.length()-1));
-		System.out.print(logOutput);
+		System.err.print(logOutput);
 		
 	}
 
@@ -153,7 +153,7 @@ public class Logger {
 	private static void checkLogFile(File file) {
 		if(file.exists()) {
 			// größe eine log file beim archivieren
-			if(file.length() < 1* 1000*1000) return;
+			if(file.length() < 5* 1000*1000) return;
 			Logger.changeLogFile(file);
 			return;
 		}

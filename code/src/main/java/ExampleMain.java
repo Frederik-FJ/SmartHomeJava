@@ -6,12 +6,22 @@ import information.RunningProgramInformation;
 import logger.Logger;
 import pythonProgramms.FritzBox;
 import pythonProgramms.Sonos;
+import website.ReceiveSocket;
 
 public class ExampleMain {
 	
 	
 	
 	public static void main(String[] args) {
+		
+		// Adding a Thread for the Webserver
+		Thread web = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				new ReceiveSocket(1904).startServer();
+			}
+		});
 
 		// Adding a Shutdown Thread which will be executed when the User exit the program (Strg+C)
 		Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -21,6 +31,7 @@ public class ExampleMain {
 				Logger.log("System", "Shutdown", "The SmartHome programm will shut down");
 
 				// do things that must be done before shutdown
+				
 
 				Logger.log("System", "Shutdown", "The SmartHome program has been shut down");
 			}
@@ -31,6 +42,9 @@ public class ExampleMain {
 		Logger.log("System", "Boot", "The SmartHome programm boot...");
 		
 		Logger.log("Programm", "Boot", "Detected System: " + RunningProgramInformation.RunningSystem);
+		
+		//starting the web server
+		web.start();
 		
 		
 		// Config paths

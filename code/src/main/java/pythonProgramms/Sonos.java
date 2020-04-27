@@ -158,7 +158,7 @@ public class Sonos {
 	 * 
 	 * @param quieter The new Volume is the actual volume minus the Parameter quieter
 	 */
-	public void quiter(int quieter) {
+	public void quieter(int quieter) {
 		String result = this.run("volumeQuieter", ""+quieter);
 	}
 	

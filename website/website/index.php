@@ -42,7 +42,7 @@ $darkmode = true;
       <li>Java*</li>
       <li>python 3*</li>
       <li>Php 7.3*</li><br/>
-      <li>Node.js - noch nicht benutzt</li>
+      <li>Eventuell kommt noch Node.js hinzu. Das wird sich noch entscheiden</li>
     </ul>
     <p>Programme mit einem * müssen zuvor installiert werden</p>
     <p>Bisher kann das Programm leider nur auf Linux laufen</p><br/><br/>

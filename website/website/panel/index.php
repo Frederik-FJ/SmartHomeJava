@@ -1,3 +1,8 @@
+<?php
+  $darkmode = true;
+
+?>
+
 <!DOCTYPE html>
 <html lang="de">
   <head>
@@ -16,14 +21,37 @@
     <title>Befehlspannel SmartHome</title>
   </head>
   <body>
-    <h1>Dieser Dienst funktioniert noch nicht</h1>
 
-    <p>Dieser Dienst funktioniert noch nicht... dafür gibt es hier Infos über Php</p>
+
+      <!---->
+      <ul class="nav">
+        <li><a class="activ nav" href=".">Start</a></li>
+        <li><a class="notActiv nav" href="sonos">Sonos</a></li>
+        <li><a class="notActiv nav" href="fritzbox">Fritz!Box</a></li>
+      </ul>
+
+
+    <div class="divInhalt">
+      <h1>Panel</h1>
+
+
+
+
+    <p class="mittig">Dies ist die Startseite vom Panel</p>
+
+
+
+
+
+
+
+
+
+
+
     <?php
-      phpversion();
 
-      phpinfo();
      ?>
-
+     </div>
   </body>
 </html>
