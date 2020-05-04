@@ -31,3 +31,8 @@
 *.jar
 *.sh
 /.metadata/
+
+.classpath
+.project
+/code/.settings/
+/code/.classpath
