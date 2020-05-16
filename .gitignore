@@ -29,6 +29,8 @@
 
 #exclude jar/sh files
 *.jar
+*.class
+*.classpath
 *.sh
 /.metadata/
 
@@ -36,3 +38,4 @@
 .project
 /code/.settings/
 /code/.classpath
+code/src/main/java/information/Information.java

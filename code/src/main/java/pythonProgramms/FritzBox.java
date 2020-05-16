@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import FritzBox.FritzBoxDevice;
 import FritzBox.FritzBoxInformations;
+import information.Information;
 import information.RunningProgramInformation;
 import logger.Logger;
 import ownLibaries.FileLibary.OwnFileWriter;
@@ -30,43 +31,27 @@ public class FritzBox {
 	String devicePyFilePath = path + "fritz_device.py";
 	File statePyFile = new File(statePyFilePath);
 	File devicePyFile = new File(devicePyFilePath);
-	String ip;
-	String pw;
+	String ip = Information.FritzBoxIP;
+	String pw = Information.FritzBoxPassword;
 	
-	String pythonCmd = "python";
+	public static String pythonCmd = "python";
 	
 	/**
 	 * @since version 0.0.3
-	 * @param ip IP address from the FritzBox
-	 * @param pw password to Login into the FritzBox
 	 * @param pythonCmd the pythonCmd which should be used (for example python3,python)
 	 */
-	public FritzBox(String ip, String pw, String pythonCmd) {
-		this.ip = ip;
-		this.pw = pw;
-		
+	public FritzBox(String pythonCmd) {
 		this.pythonCmd = pythonCmd;
-		
-		
-		
 		checkFiles();
-		
 	}
 	
 	
 	/**
-	 * 
+	 *
 	 * @since version 0.0.1
-	 * 
-	 * @param ip The IP address from the FritzBox
-	 * @param pw The password to Login into the FritzBox 
 	 */
-	public FritzBox(String ip, String pw) {
-		this.ip = ip;
-		this.pw = pw;
-		
+	public FritzBox() {
 		checkFiles();
-
 	}
 	
 	/**
@@ -85,7 +70,6 @@ public class FritzBox {
 	 * @param path Path of the file in the jar which should be copied
 	 */
 	private void createFile(File file, String path) {
-		OwnFileWriter.createFile(file);
 		InputStream is = getClass().getResourceAsStream(path);
 		int i;
 		String s = "";
@@ -96,6 +80,7 @@ public class FritzBox {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		OwnFileWriter.createFile(file);
 		OwnFileWriter.add(file, s);
 	}
 	
@@ -125,7 +110,7 @@ public class FritzBox {
 			String[] infoArr = einzelInfo.split(":");
 			
 			
-			// Muss verändert werden, wenn Service,Action oder Keys verändert werden
+			// Muss ver?ndert werden, wenn Service,Action oder Keys ver?ndert werden
 			FritzBoxInformations fbinfo = new FritzBoxInformations(this.ip);
 			try {
 				fbinfo.setStateInformation(infoArr[0], infoArr[1]);

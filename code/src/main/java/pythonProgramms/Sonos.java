@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Scanner;
+
+import information.Information;
 import information.RunningProgramInformation;
 import logger.Logger;
 import ownLibaries.FileLibary.OwnFileWriter;
@@ -17,16 +19,16 @@ import ownLibaries.FileLibary.OwnFileWriter;
  * @see <a href="http://docs.python-soco.com/en/latest/">SoCo</a> is used in the python program
  */
 public class Sonos {
-	
+
 	
 	String jarPath = "/pythonFiles/sonos/sonos.py";
 	String filePath = RunningProgramInformation.runningPath + jarPath.substring(1);
 	File f = new File(filePath);
 	
-	String ip;
+	String ip = Information.SonosIP;
 	
 	
-	String pythonCmd = "python";
+	public static String pythonCmd = "python";
 	
 	
 	
@@ -35,24 +37,18 @@ public class Sonos {
 	
 	/**
 	 * @since 0.0.1
-	 * 
-	 * @param ip The IP address of the Sonos
+	 *
 	 */
-	public Sonos(String ip) {
-		this.ip = ip;
-		
+	public Sonos() {
 		checkFiles();	
 	}
 	
 	/**
 	 * @since version 0.0.3
-	 * @param ip IP address of the Sonos
 	 * @param pythonCmd the pythonCmd which should be used (for example python3,python)
 	 */
-	public Sonos(String ip, String pythonCmd) {
-		this.ip = ip;
+	public Sonos(String pythonCmd) {
 		this.pythonCmd = pythonCmd;
-		
 		checkFiles();
 	}
 	
@@ -71,7 +67,6 @@ public class Sonos {
 	 * @param path path in the jar from the file which should be copied
 	 */
 	private void createFile(File file, String path) {
-		OwnFileWriter.createFile(file);
 		InputStream is = getClass().getResourceAsStream(path);
 		int i;
 		String s = "";
@@ -82,6 +77,7 @@ public class Sonos {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		OwnFileWriter.createFile(file);
 		OwnFileWriter.add(file, s);
 	}
 	
@@ -98,7 +94,6 @@ public class Sonos {
 	private String run(String cmd, String params) {
 		String result = "";
 		String execute = pythonCmd + " " + filePath + " --ip " + this.ip + " --cmd " + cmd + " --param " + params;
-		
 		try {
 			Process p = Runtime.getRuntime().exec(execute);
 			Scanner s = new Scanner(new InputStreamReader(p.getInputStream()));

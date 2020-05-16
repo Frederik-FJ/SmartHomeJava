@@ -18,9 +18,9 @@ public class MailSender {
 	
 	protected Session mailSession;
 	
-	public void login(String smtpHost, int smtpPort, String user, String pw) {
+	public void login(String smtpHost, int smtpPort, final String user, final String pw) {
 		Properties props = new Properties();
-		 props.put("mail.smtp.host", smtpHost);
+		props.put("mail.smtp.host", smtpHost);
         props.put("mail.smtp.socketFactory.port", smtpPort);
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");

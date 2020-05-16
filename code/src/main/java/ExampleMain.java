@@ -6,7 +6,6 @@ import information.RunningProgramInformation;
 import logger.Logger;
 import pythonProgramms.FritzBox;
 import pythonProgramms.Sonos;
-import website.ReceiveSocket;
 
 public class ExampleMain {
 	
@@ -70,8 +69,8 @@ public class ExampleMain {
 		while (true) {
 			
 			String output = "";
-			FritzBox fb = new FritzBox("192.168.178.1", "password", pythonCmd);
-			Sonos son = new Sonos("Sonos IP", pythonCmd);
+			FritzBox fb = new FritzBox(pythonCmd);
+			Sonos son = new Sonos(pythonCmd);
 			
 			// get FritzBox Informations
 			for(FritzBoxInformations fbinfo : fb.getWLanState()) {
