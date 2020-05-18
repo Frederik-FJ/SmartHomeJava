@@ -39,3 +39,6 @@
 /code/.settings/
 /code/.classpath
 code/src/main/java/information/Information.java
+
+/venv/
+/target/
