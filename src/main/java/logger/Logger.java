@@ -152,7 +152,7 @@ public class Logger {
 	 */
 	private static void checkLogFile(File file) {
 		if(file.exists()) {
-			// größe eine log file beim archivieren
+			// gr??e eine log file beim archivieren
 			if(file.length() < 5* 1000*1000) return;
 			Logger.changeLogFile(file);
 			return;
