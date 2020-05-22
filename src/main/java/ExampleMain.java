@@ -2,6 +2,7 @@
 import FritzBox.FritzBoxDevice;
 import FritzBox.FritzBoxInformations;
 import config.ConfigFile;
+import information.Information;
 import information.RunningProgramInformation;
 import interfaces.websocket.WebSocketServer;
 import logger.Logger;
@@ -36,9 +37,13 @@ public class ExampleMain {
 		
 		// Config paths
 		String cmdsConfPath = RunningProgramInformation.runningPath + "config/commands.conf";
+
+		//Change this path if yout want to export that programm
+		String dataConfPath = RunningProgramInformation.runningPath + "../../../data.conf";
 		
 		// Create config objects
 		ConfigFile cmdsConf = new ConfigFile(cmdsConfPath);
+		ConfigFile dataConf = new ConfigFile(dataConfPath);
 
 		web.start();
 		
@@ -47,6 +52,17 @@ public class ExampleMain {
 			cmdsConf.create(new String[][] {{"#","pythonCmd"},{"cmds that the system is using", "python3"}});
 		}
 		String pythonCmd = cmdsConf.read("pythonCmd");
+
+
+		Information.SonosIP = dataConf.read("Sonos IP");
+		Information.FritzBoxIP = dataConf.read("FritzBox IP");
+		Information.FritzBoxPassword = dataConf.read("FritzBox Password");
+
+		Information.mailName = dataConf.read("Mail Name");
+		Information.mailUser = dataConf.read("Mail User");
+		Information.mailPw = dataConf.read("Mail Password");
+		Information.senderMail = dataConf.read("Sender Mail");
+		Information.mailReceiver = dataConf.read("Mail Receiver");
 
 		
 		
