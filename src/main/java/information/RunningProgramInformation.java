@@ -19,9 +19,7 @@ public class RunningProgramInformation {
 	 * The path of the folder with the jar-file
 	 * @since version 0.0.3
 	 */
-	public static final String runningPath = RunningProgramInformation.class.getProtectionDomain().getCodeSource()
-			.getLocation().getPath().substring(0, RunningProgramInformation.class.getProtectionDomain().getCodeSource()
-					.getLocation().getPath().lastIndexOf('/')+1);
+	public static final String runningPath = new RunningProgramInformation().getRunningPath();
 
 	/**
 	 * 
@@ -31,8 +29,14 @@ public class RunningProgramInformation {
 	public String getRunningSystem() {
 		
 		Properties p = System.getProperties();
-		String os = (String) p.get("os.name");
-		return os;
+		return (String) p.get("os.name");
+	}
+
+	public String getRunningPath(){
+		String path = RunningProgramInformation.class.getProtectionDomain().getCodeSource()
+				.getLocation().getPath().substring(0, RunningProgramInformation.class.getProtectionDomain().getCodeSource()
+				.getLocation().getPath().lastIndexOf('/')+1);
+		return Windows && path.startsWith("/")?path.substring(1):path;
 	}
 
 }
