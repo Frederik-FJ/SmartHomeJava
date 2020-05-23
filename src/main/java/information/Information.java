@@ -18,4 +18,8 @@ public class Information {
     public static String MAIL_USER = "mailUser";
     public static String MAIL_PW = "mailPw";
     public static String MAIL_NAME = "mailName";
+
+
+    public static String TELEGRAM_BOT_NAME = "NAME";
+    public static String TELEGRAM_BOT_TOKEN = "TOKEN";
 }
