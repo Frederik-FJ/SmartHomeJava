@@ -25,7 +25,7 @@ public class Sonos {
 	String filePath = RunningProgramInformation.runningPath + jarPath.substring(1);
 	File f = new File(filePath);
 	
-	String ip = Information.SonosIP;
+	String ip = Information.SONOS_IP;
 	
 	
 	public static String pythonCmd = "python";

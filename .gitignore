@@ -1,18 +1,15 @@
 #exclude personal Main
-/code/src/main/java/Main.java
+/src/main/java/Main.java
 
 #exclude test classes and test projekts
-/code/src/main/java/testMain.java
-/code/src/main/java/TestMain.java
-/code/src/main/java/database/TestConnector.java
+/src/main/java/testMain.java
+/src/main/java/TestMain.java
 /test/
-/website/experimentalJavaWebsite/
-/ServerExperimental/
-/website/website/experimentalWebsite/
 
 #exclude own .class files
-/code/bin/
-/code/target/
+/bin/
+/target/
+/venv/
 
 #exclude own conf/logFiles
 /logs/info.log
@@ -20,12 +17,11 @@
 /config/smart-home-java.conf
 
 #exclude Pycharm folder
-/code/src/main/resources/pythonFiles/.idea/
+/src/main/resources/pythonFiles/.idea/
 
 #exclude other things
-/code/ablage
-/code/test.conf
-/code/test/
+/ablage
+/test.conf
 
 #exclude jar/sh files
 *.jar
@@ -36,8 +32,6 @@
 
 .classpath
 .project
-/code/.settings/
-/code/.classpath
 
-/venv/
-/target/
+
+

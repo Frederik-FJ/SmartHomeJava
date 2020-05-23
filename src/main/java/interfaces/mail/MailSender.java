@@ -1,4 +1,4 @@
-package mail;
+package interfaces.mail;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -20,11 +20,11 @@ public class MailSender {
 	
 	public void login(String smtpHost, int smtpPort, final String user, final String pw) {
 		Properties props = new Properties();
-		props.put("mail.smtp.host", smtpHost);
-        props.put("mail.smtp.socketFactory.port", smtpPort);
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", smtpPort);
+		props.put("interfaces.mail.smtp.host", smtpHost);
+        props.put("interfaces.mail.smtp.socketFactory.port", smtpPort);
+        props.put("interfaces.mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("interfaces.mail.smtp.auth", "true");
+        props.put("interfaces.mail.smtp.port", smtpPort);
         
         Authenticator auth = new Authenticator() {
             @Override
@@ -34,7 +34,7 @@ public class MailSender {
         };
 
         this.mailSession = Session.getDefaultInstance(props, auth);
-        Logger.log("Mail", "Info", "Logged in into the mail sever");
+        Logger.log("Mail", "Info", "Logged in into the interfaces.mail sever");
 	}
 	
 	public void sendMail(String senderMail, String senderName, String receiverAddress, String subject, String message) throws MessagingException, IllegalStateException, UnsupportedEncodingException {
@@ -55,7 +55,7 @@ public class MailSender {
 
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiverAddress, false));
 
-        Logger.log("Mail", "Info", "send mail...");
+        Logger.log("Mail", "Info", "send interfaces.mail...");
         send(msg);
         Logger.log("Mail", "Info", "Mail sended");
     }

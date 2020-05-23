@@ -31,9 +31,9 @@ public class ExampleMain {
 		
 		
 		// Actions which should be executed once at the start of the program
-		Logger.log("System", "Boot", "The SmartHome programm boot...");
+		Logger.log("System", "Boot", "The SmartHome program boot...");
 		
-		Logger.log("Programm", "Boot", "Detected System: " + RunningProgramInformation.RunningSystem);
+		Logger.log("Program", "Boot", "Detected System: " + RunningProgramInformation.RunningSystem);
 		
 		// Config paths
 		String cmdsConfPath = RunningProgramInformation.runningPath + "config/commands.conf";
@@ -54,15 +54,15 @@ public class ExampleMain {
 		String pythonCmd = cmdsConf.read("pythonCmd");
 
 
-		Information.SonosIP = dataConf.read("Sonos IP");
-		Information.FritzBoxIP = dataConf.read("FritzBox IP");
-		Information.FritzBoxPassword = dataConf.read("FritzBox Password");
+		Information.SONOS_IP = dataConf.read("Sonos IP");
+		Information.FRITZBOX_IP = dataConf.read("FritzBox IP");
+		Information.FRITZBOX_PW = dataConf.read("FritzBox Password");
 
-		Information.mailName = dataConf.read("Mail Name");
-		Information.mailUser = dataConf.read("Mail User");
-		Information.mailPw = dataConf.read("Mail Password");
-		Information.senderMail = dataConf.read("Sender Mail");
-		Information.mailReceiver = dataConf.read("Mail Receiver");
+		Information.MAIL_NAME = dataConf.read("Mail Name");
+		Information.MAIL_USER = dataConf.read("Mail User");
+		Information.MAIL_PW = dataConf.read("Mail Password");
+		Information.SENDER_MAIL = dataConf.read("Sender Mail");
+		Information.MAIL_RECEIVER = dataConf.read("Mail Receiver");
 
 		
 		
@@ -85,14 +85,14 @@ public class ExampleMain {
 				ssid = fbinfo.getSSID();
 				output += ssid + ": " + status + "\n";  
 			}
-			Logger.log("FritzBox", "Info", output);
+			Logger.log("FritzBox.State", "Info", output);
 			
 			// get Devices connected with the FritzBox
 			FritzBoxDevice[] devices = fb.getKnownDevices();
 			FritzBoxDevice[] onlineDevs = fb.getOnlineDevices(devices);
 			for(FritzBoxDevice d: onlineDevs) {
 				output = d.getName() + "\t" + d.getIp() + "\t" + d.getMac();
-				Logger.log("FritzBox", "Info", output);
+				Logger.log("FritzBox.Device", "Info", output);
 			}
 			
 			

@@ -72,9 +72,14 @@ public class ConfigFile {
 			if(line == null) continue;
 			line = line.replace("\t", "");
 			if(line.startsWith(var)) {
-				String a = line.split("=")[1];
-				if(a != null) return a;
-				return "";
+				try {
+					String a = line.split("=")[1];
+					if(a != null) return a;
+					return "";
+				}catch (ArrayIndexOutOfBoundsException e){
+					return "";
+				}
+
 			}
 		}
 		return null;

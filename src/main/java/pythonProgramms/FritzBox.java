@@ -33,8 +33,8 @@ public class FritzBox {
 	String devicePyFilePath = path + "fritz_device.py";
 	File statePyFile = new File(statePyFilePath);
 	File devicePyFile = new File(devicePyFilePath);
-	String ip = Information.FritzBoxIP;
-	String pw = Information.FritzBoxPassword;
+	String ip = Information.FRITZBOX_IP;
+	String pw = Information.FRITZBOX_PW;
 
 	public static List<FritzBoxDevice> storedDevices;
 	public static List<FritzBoxInformations> storedState;
