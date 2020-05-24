@@ -106,5 +106,65 @@ public class HomematicConnection {
         return (List) request("Device.listAll", params).get("result");
     }
 
+    public Map getEvents(){
+        if(sessionID == null) return null;
+        Map<String, Object> params = new HashMap<>();
+        params.put("_session_id_", sessionID);
+        return request("Event.poll", params);
+    }
+
+    public Map getRooms(){
+        if(sessionID == null) return null;
+        Map<String, Object> params = new HashMap<>();
+        params.put("_session_id_", sessionID);
+        return request("Room.getAll", params);
+    }
+
+    public Map getRoomIds(){
+        if(sessionID == null) return null;
+        Map<String, Object> params = new HashMap<>();
+        params.put("_session_id_", sessionID);
+        return request("Room.listAll", params);
+    }
+
+    public Map getChannelValue(int channelId){
+        if(sessionID == null) return null;
+        Map<String, Object> params = new HashMap<>();
+        params.put("_session_id_", sessionID);
+        params.put("id", channelId);
+        return request("Channel.getValue", params);
+    }
+
+    public Map getProgramIds(int channelId){
+        if(sessionID == null) return null;
+        Map<String, Object> params = new HashMap<>();
+        params.put("_session_id_", sessionID);
+        params.put("id", channelId);
+        return request("Channel.listProgramIds", params);
+    }
+
+    public Map getProgramInfo(int programId){
+        if(sessionID == null) return null;
+        Map<String, Object> params = new HashMap<>();
+        params.put("_session_id_", sessionID);
+        params.put("id", programId);
+        return request("Program.get", params);
+    }
+
+    public Map listProgramInfo(){
+        if(sessionID == null) return null;
+        Map<String, Object> params = new HashMap<>();
+        params.put("_session_id_", sessionID);
+        return request("Program.getAll", params);
+    }
+
+    public Map executeProgram(int programId){
+        if(sessionID == null) return null;
+        Map<String, Object> params = new HashMap<>();
+        params.put("_session_id_", sessionID);
+        params.put("id", programId);
+        return request("Program.execute", params);
+    }
+
 
 }
