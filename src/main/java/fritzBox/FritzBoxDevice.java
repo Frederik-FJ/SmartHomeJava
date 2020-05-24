@@ -1,4 +1,4 @@
-package FritzBox;
+package fritzBox;
 
 /**
  * 
@@ -35,8 +35,7 @@ public class FritzBoxDevice {
 	 * @return returns a boolean if the device is online
 	 */
 	public boolean isOnline() {
-		if(state.equals("online")) return true;
-		return false;
+		return state.equals("online");
 	}
 	
 	/**

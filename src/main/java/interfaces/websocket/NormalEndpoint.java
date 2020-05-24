@@ -5,11 +5,12 @@ import com.google.gson.JsonSyntaxException;
 import logger.Logger;
 import pythonProgramms.FritzBox;
 import pythonProgramms.Sonos;
-import FritzBox.*;
+import fritzBox.*;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -183,7 +184,7 @@ public class NormalEndpoint {
                 fritzBox.getKnownDevices();
             }
             ret.put("state", true);
-            ret.put("devices", Arrays.asList(FritzBox.storedDevices));
+            ret.put("devices", Collections.singletonList(FritzBox.storedDevices));
         }
         if(action.equalsIgnoreCase("get_online_devices")){
             if(FritzBox.storedDevices == null){
@@ -196,7 +197,7 @@ public class NormalEndpoint {
             if(FritzBox.storedState == null){
                 ret.put("fritzStates", Arrays.asList(fritzBox.getWLanState()));
             }else {
-                ret.put("fritzStates", Arrays.asList(FritzBox.storedState));
+                ret.put("fritzStates", Collections.singletonList(FritzBox.storedState));
             }
             ret.put("state", true);
         }

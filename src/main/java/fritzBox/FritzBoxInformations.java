@@ -1,4 +1,4 @@
-package FritzBox;
+package fritzBox;
 
 /**
  * A Class to store values from the FritzBox

@@ -22,4 +22,5 @@ public class Information {
 
     public static String TELEGRAM_BOT_NAME = "NAME";
     public static String TELEGRAM_BOT_TOKEN = "TOKEN";
+    public static long[] TELEGRAM_ALLOWED_CHATS = {};
 }

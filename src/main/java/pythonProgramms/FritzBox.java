@@ -8,8 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import FritzBox.FritzBoxDevice;
-import FritzBox.FritzBoxInformations;
+import fritzBox.FritzBoxDevice;
+import fritzBox.FritzBoxInformations;
 import information.Information;
 import information.RunningProgramInformation;
 import logger.Logger;
@@ -46,7 +46,7 @@ public class FritzBox {
 	 * @param pythonCmd the pythonCmd which should be used (for example python3,python)
 	 */
 	public FritzBox(String pythonCmd) {
-		this.pythonCmd = pythonCmd;
+		FritzBox.pythonCmd = pythonCmd;
 		checkFiles();
 	}
 	
@@ -77,16 +77,16 @@ public class FritzBox {
 	private void createFile(File file, String path) {
 		InputStream is = getClass().getResourceAsStream(path);
 		int i;
-		String s = "";
+		StringBuilder s = new StringBuilder();
 		try {
 			while((i = is.read())!=-1){
-				s += (char) i;
+				s.append((char) i);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		OwnFileWriter.createFile(file);
-		OwnFileWriter.add(file, s);
+		OwnFileWriter.add(file, s.toString());
 	}
 	
 
@@ -247,7 +247,7 @@ public class FritzBox {
 	 * @see <a href="https://fritzconnection.readthedocs.org">fritzconnection</a> is used in the Python programm
 	 */
 	private String runState(String service, String action, String keys) {
-		String result = "";
+		StringBuilder result = new StringBuilder();
 		String cmd = pythonCmd + " " + statePyFilePath + " --service " + service + " --action " + action + " --ip "
 				+ this.ip + " --password " + this.pw + " --keys " + keys;
 		try {
@@ -255,7 +255,7 @@ public class FritzBox {
 			Scanner s = new Scanner(new InputStreamReader(p.getInputStream()));
 			while (s.hasNextLine()) {
 				String st = s.nextLine();
-				result += st + "\n";
+				result.append(st).append("\n");
 			}
 			s.close();
 		} catch (IOException e) {
@@ -264,7 +264,7 @@ public class FritzBox {
 					"There is an IO-Exception occured while trying to run this cmd: " + statePyFilePath);
 		}
 		
-		return result;
+		return result.toString();
 	}
 	
 	
@@ -278,7 +278,7 @@ public class FritzBox {
 	 * @see <a href="https://fritzconnection.readthedocs.io/en/1.2.1/sources/library.html#fritzhosts">fritzconnection</a> is used in the Python programm
 	 */
 	private String runDevice() {
-		String result = "";
+		StringBuilder result = new StringBuilder();
 		String cmd = pythonCmd + " " + devicePyFilePath + " --ip " + this.ip + " --password " + this.pw;
 		try {
 			ProcessBuilder pb = new ProcessBuilder(pythonCmd, devicePyFilePath, "--ip", this.ip, "--password", this.pw);
@@ -286,7 +286,7 @@ public class FritzBox {
 			Scanner s = new Scanner(new InputStreamReader(p.getInputStream()));
 			while (s.hasNextLine()) {
 				String st = s.nextLine();
-				result += st + "\n";
+				result.append(st).append("\n");
 			}
 			s.close();
 		} catch (IOException e) {
@@ -294,6 +294,6 @@ public class FritzBox {
 			Logger.logError("JavaPython.FritzBox",
 					"There is an IO-Exception occured while trying to run this cmd: " + cmd);
 		}
-		return result;
+		return result.toString();
 	}
 }
