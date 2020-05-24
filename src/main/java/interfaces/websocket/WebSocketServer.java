@@ -7,20 +7,20 @@ import java.io.InputStreamReader;
 
 public class WebSocketServer {
 
+    static Server server;
+
     public static void runServer(int port){
-        Server server = new Server("localhost", port, "/", NormalEndpoint.class);
+        server = new Server("localhost", port, "/", NormalEndpoint.class);
 
         try {
             server.start();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            while (true){
-
-            }
         }catch (Exception e){
             e.printStackTrace();
-        }finally {
-            server.stop();
         }
+    }
+
+    public static void stopServer(){
+        server.stop();
     }
 
 

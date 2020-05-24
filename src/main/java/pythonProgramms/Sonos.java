@@ -48,7 +48,7 @@ public class Sonos {
 	 * @param pythonCmd the pythonCmd which should be used (for example python3,python)
 	 */
 	public Sonos(String pythonCmd) {
-		this.pythonCmd = pythonCmd;
+		Sonos.pythonCmd = pythonCmd;
 		checkFiles();
 	}
 	
@@ -69,16 +69,16 @@ public class Sonos {
 	private void createFile(File file, String path) {
 		InputStream is = getClass().getResourceAsStream(path);
 		int i;
-		String s = "";
+		StringBuilder s = new StringBuilder();
 		try {
 			while((i = is.read())!=-1){
-				s += (char) i;
+				s.append((char) i);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		OwnFileWriter.createFile(file);
-		OwnFileWriter.add(file, s);
+		OwnFileWriter.add(file, s.toString());
 	}
 	
 	
@@ -92,21 +92,21 @@ public class Sonos {
 	 * @see <a href="http://docs.python-soco.com/en/latest/">SoCo</a> is used in the python program
 	 */
 	private String run(String cmd, String params) {
-		String result = "";
+		StringBuilder result = new StringBuilder();
 		String execute = pythonCmd + " " + filePath + " --ip " + this.ip + " --cmd " + cmd + " --param " + params;
 		try {
 			Process p = Runtime.getRuntime().exec(execute);
 			Scanner s = new Scanner(new InputStreamReader(p.getInputStream()));
 			while(s.hasNextLine()) {
 				String st = s.nextLine();
-				result += st + "\n";
+				result.append(st).append("\n");
 			}
 			s.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 			Logger.logError("JavaPython.Sonos", "Eine IO-Exception ist aufgetreten. " + filePath);
 		}
-		return result;
+		return result.toString();
 	}
 	
 	/**
@@ -118,8 +118,7 @@ public class Sonos {
 		String volume = this.run("getVolume", null);
 		volume = volume.replaceAll("\n", "");
 		volume = volume.replaceAll(" ", "");
-		int vol = Integer.parseInt(volume);
-		return vol;
+		return Integer.parseInt(volume);
 	}
 	
 	/**
@@ -129,10 +128,10 @@ public class Sonos {
 	 * @param volume The new Volume
 	 */
 	public void setVolume(int volume) {
-		
-		String result = this.run("setVolume", ""+volume);
-		String vorher = result.split("-->")[0];
-		String nacher = result.split("-->")[1];
+
+		/*String result = */this.run("setVolume", "" + volume);
+		/*String vorher = result.split("-->")[0];
+		String nacher = result.split("-->")[1];*/
 
 	}
 	
@@ -144,7 +143,7 @@ public class Sonos {
 	 * @param louder The new volume is the actual volume plus the Parameter louder
 	 */
 	public void louder(int louder) {
-		String result = this.run("volumeLouder", ""+louder);
+		/*String result =*/ this.run("volumeLouder", ""+louder);
 	}
 	
 	/**
@@ -154,7 +153,7 @@ public class Sonos {
 	 * @param quieter The new Volume is the actual volume minus the Parameter quieter
 	 */
 	public void quieter(int quieter) {
-		String result = this.run("volumeQuieter", ""+quieter);
+		/*String result =*/ this.run("volumeQuieter", ""+quieter);
 	}
 	
 	/**
@@ -165,9 +164,8 @@ public class Sonos {
 	public String[] getQueue() {
 		
 		String result = this.run("getQueue", null);
-		String[] resultArray = result.split(",");
-		
-		return resultArray;
+
+		return result.split(",");
 	}
 	
 	/**
@@ -176,8 +174,7 @@ public class Sonos {
 	 * @return returns the title from the current playing track
 	 */
 	public String getCurrectTrack() {
-		String result = this.run("getCurrentTrack", "title");
-		return result;
+		return this.run("getCurrentTrack", "title");
 	}
 
 }

@@ -71,7 +71,7 @@ public class OwnFileReader {
 	/**
 	 * Get the number of lines in a file
 	 * @since version 0.0.3
-	 * @param file 
+	 * @param file the file
 	 * @return returns the number of lines in a file
 	 */
 	public static int getLines(File file) {

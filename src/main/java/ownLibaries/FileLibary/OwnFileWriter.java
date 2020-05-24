@@ -32,7 +32,6 @@ public class OwnFileWriter {
 		}else {
 			try {
 				char between = '/';
-				if(RunningProgramInformation.Linux) between = '/';
 				if(RunningProgramInformation.Windows) between = '\\';
 				String s = f.getAbsolutePath();
 				String filePath = s.substring(0, s.lastIndexOf(between));
@@ -91,9 +90,8 @@ public class OwnFileWriter {
 	 * 
 	 * @param f File in which the method should write
 	 * @param input The string which should be written in the File
-	 * @return returns if the method worked correctly
 	 */
-	public static boolean add(File f, String input) {
+	public static void add(File f, String input) {
 		if(f.exists()) {
 			
 			String n = System.getProperty("line.separator");
@@ -110,20 +108,17 @@ public class OwnFileWriter {
 			} catch (IOException e) {
 				e.printStackTrace();
 				Logger.logConsole("FileWriter", "Error", "Couldn't write in the file " + f.getAbsolutePath()+ " because of an IOException");
-				return false;
 			}catch (NullPointerException e) {
 				e.printStackTrace();
 				Logger.logError("FileWriter", "There is no possibility to write null into a file");
 			}
-			
-			return true;
+
 		}else {
 			Logger.logConsole("FileWriter", "Error", "The file couldn't be found");
 			
 			if(!f.getName().equals("error.log")) {
 				Logger.logError("FileWriter", "The file " + f.getAbsolutePath() + " couldn't be found");
 			}
-			return false;
 		}
 	}
 	

@@ -17,12 +17,12 @@ public class Logger {
 	
 	
 	
-	private static String LogFilePath =  RunningProgramInformation.runningPath + "logs/info.log";
-	private static File logFile = new File(LogFilePath);
+	private static final String LogFilePath =  RunningProgramInformation.runningPath + "logs/info.log";
+	private static final File logFile = new File(LogFilePath);
 	
 	
-	private static String errorLogFilePath = RunningProgramInformation.runningPath +  "logs/error.log";
-	private static File errorLogFile = new File(errorLogFilePath);
+	private static final String errorLogFilePath = RunningProgramInformation.runningPath +  "logs/error.log";
+	private static final File errorLogFile = new File(errorLogFilePath);
 		
 	/**
 	 * Logs in the Console and in a File
@@ -39,7 +39,7 @@ public class Logger {
 	 */
 	public static void log(String source, String type, String output) {
 		
-		String logOutput = "";
+		StringBuilder logOutput = new StringBuilder();
 		
 		checkLogFile(logFile);
 		
@@ -53,7 +53,14 @@ public class Logger {
 		// Bilden des Outputs
 		String[] OutputArray = output.split("\n");
 		for(String s : OutputArray) {
-			logOutput += formatDateTime + " [" + source + "][" + type + "] --> " + s + "\n";
+			logOutput.append(formatDateTime)
+					.append(" [")
+					.append(source)
+					.append("][")
+					.append(type)
+					.append("] --> ")
+					.append(s)
+					.append("\n");
 		}
 		
 		OwnFileWriter.add(logFile, logOutput.substring(0, logOutput.length()-1));
@@ -79,7 +86,7 @@ public class Logger {
 	 */
 	public static void logConsole(String source, String type, String output) {
 		
-		String logOutput = "";
+		StringBuilder logOutput = new StringBuilder();
 		
 		
 		//Datum + Zeit bekommen & formatieren
@@ -91,7 +98,14 @@ public class Logger {
 		// Bilden des Outputs
 		String[] OutputArray = output.split("\n");
 		for(String s : OutputArray) {
-			logOutput += formatDateTime + " [" + source + "][" + type + "] --> " + s + "\n";
+			logOutput.append(formatDateTime)
+					.append(" [")
+					.append(source)
+					.append("][")
+					.append(type)
+					.append("] --> ")
+					.append(s)
+					.append("\n");
 		}
 		
 		System.out.print(logOutput);
@@ -113,7 +127,7 @@ public class Logger {
 	 */
 	public static void logError(String source, String output) {
 		
-		String logOutput = "";
+		StringBuilder logOutput = new StringBuilder();
 		
 		checkLogFile(errorLogFile);
 		
@@ -126,7 +140,15 @@ public class Logger {
 		// Bilden des Outputs
 		String[] OutputArray = output.split("\n");
 		for(String s : OutputArray) {
-			logOutput += formatDateTime + " [" + source + "][" + "Error" + "] --> " + s + "\n";
+			logOutput
+					.append(formatDateTime)
+					.append(" [")
+					.append(source)
+					.append("][")
+					.append("Error")
+					.append("] --> ")
+					.append(s)
+					.append("\n");
 		}
 		
 		OwnFileWriter.add(errorLogFile, logOutput.substring(0, logOutput.length()-1));

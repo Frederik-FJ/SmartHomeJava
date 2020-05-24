@@ -98,6 +98,7 @@ public class ExampleMain {
 		// start websocket
 		web.start();
 
+		Interfaces interfaces = new Interfaces(telegramBot);
 
 		// Adding a Shutdown Thread which will be executed when the User exit the program (Strg+C)
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
@@ -105,15 +106,17 @@ public class ExampleMain {
 			Logger.log("System", "Shutdown", "The SmartHome programm will shut down");
 
 			// do things that must be done before shutdown
+			interfaces.send("The program shuts down", true);
+			WebSocketServer.stopServer();
 			web.interrupt();
 			home.logout();
 
 			Logger.log("System", "Shutdown", "The SmartHome program has been shut down");
 		}));
 
-		Interfaces interfaces = new Interfaces(telegramBot);
 
-		Logger.log("Program", "Boot", "The SmartHome program was booted");
+
+		Logger.log("Program", "Boot", "The SmartHome program has booted");
 		interfaces.send("Das Programm ist wieder hochgefahren", true);
 		
 		
