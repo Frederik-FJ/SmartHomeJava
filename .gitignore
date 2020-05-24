@@ -1,5 +1,6 @@
 #exclude personal Main
 /src/main/java/Main.java
+/src/main/java/information/HomematicInformation.java
 
 #exclude test classes and test projekts
 /src/main/java/testMain.java

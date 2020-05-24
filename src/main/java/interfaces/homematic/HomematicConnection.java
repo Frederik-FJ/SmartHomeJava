@@ -49,7 +49,6 @@ public class HomematicConnection {
 
         try{
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.body());
             return gson.fromJson(response.body(), Map.class);
         }catch (InterruptedException e){
             Logger.logError("HomematicConnection", "The program got interrupted by waiting of the " +
@@ -164,6 +163,36 @@ public class HomematicConnection {
         params.put("_session_id_", sessionID);
         params.put("id", programId);
         return request("Program.execute", params);
+    }
+
+    public Map getVars(){
+        if(sessionID == null) return null;
+        Map<String, Object> params = new HashMap<>();
+        params.put("_session_id_", sessionID);
+        return request("SysVar.getAll", params);
+    }
+
+    public Object getVarValue(int varId){
+        if(sessionID == null) return null;
+        Map<String, Object> params = new HashMap<>();
+        params.put("_session_id_", sessionID);
+        params.put("id", varId);
+        return request("SysVar.getValue", params).get("result");
+    }
+
+    public Map getVarInfo(int varId){
+        if(sessionID == null) return null;
+        Map<String, Object> params = new HashMap<>();
+        params.put("_session_id_", sessionID);
+        params.put("id", varId);
+        return request("SysVar.getValue", params);
+    }
+
+    public Map getDevices(){
+        if(sessionID == null) return null;
+        Map<String, Object> params = new HashMap<>();
+        params.put("_session_id_", sessionID);
+        return request("Device.listAllDetail", params);
     }
 
 

@@ -115,6 +115,9 @@ public class NormalEndpoint {
         if(cmd.equalsIgnoreCase("fritzbox")){
             return fritzBox(data);
         }
+        if(cmd.equalsIgnoreCase("homematic")){
+            return homematic(data);
+        }
 
         return "null";
     }
@@ -223,5 +226,13 @@ public class NormalEndpoint {
         return gson.toJson(ret);
     }
 
+    private String homematic(Map<String, Object> data){
+        String action = data.get("action").toString();
+        Map<String, Object> ret = new HashMap<>();
 
+        ret.put("state", false);
+        ret.put("error", "This service must be implemented by yourself");
+
+        return gson.toJson(ret);
+    }
 }
