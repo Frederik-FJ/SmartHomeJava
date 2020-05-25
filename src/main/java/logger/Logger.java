@@ -17,12 +17,15 @@ public class Logger {
 	
 	
 	
-	private static final String LogFilePath =  RunningProgramInformation.runningPath + "logs/info.log";
-	private static final File logFile = new File(LogFilePath);
+	private static final String infoLogFilePath =  RunningProgramInformation.runningPath + "logs/info.log";
+	private static final File infoLogFile = new File(infoLogFilePath);
 	
 	
 	private static final String errorLogFilePath = RunningProgramInformation.runningPath +  "logs/error.log";
 	private static final File errorLogFile = new File(errorLogFilePath);
+
+	private static final String allLogFilePath = RunningProgramInformation.runningPath + "logs/logs.log";
+	private static final File logFile = new File(allLogFilePath);
 		
 	/**
 	 * Logs in the Console and in a File
@@ -63,6 +66,7 @@ public class Logger {
 					.append("\n");
 		}
 		
+		OwnFileWriter.add(infoLogFile, logOutput.substring(0, logOutput.length()-1));
 		OwnFileWriter.add(logFile, logOutput.substring(0, logOutput.length()-1));
 		System.out.print(logOutput);
 		
@@ -152,6 +156,7 @@ public class Logger {
 		}
 		
 		OwnFileWriter.add(errorLogFile, logOutput.substring(0, logOutput.length()-1));
+		OwnFileWriter.add(logFile, logOutput.substring(0, logOutput.length()-1));
 		System.err.print(logOutput);
 		
 	}
